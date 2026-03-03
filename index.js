@@ -40,7 +40,7 @@ function renderLiquidPreview() {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#000000">
-  <title>Qodora iOS Pro Theme - Preview</title>
+  <title>Lequied Theme - Preview</title>
   <style>
     :root {
       --color-primary: #0A84FF;
@@ -96,7 +96,7 @@ function renderLiquidPreview() {
           </button>
 
           <div class="flex items-center">
-            <a href="/" class="text-xl font-semibold tracking-tight text-white hover:text-white/90 transition-colors">Qodora</a>
+            <a href="/" class="text-xl font-semibold tracking-tight text-white hover:text-white/90 transition-colors">Lequied</a>
           </div>
 
           <nav class="hidden md:flex items-center" role="navigation" aria-label="Main navigation">
@@ -236,7 +236,7 @@ function renderLiquidPreview() {
                   ${product.compare ? '<span class="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider bg-red-500 text-white rounded-full">Sale</span>' : ''}
                 </div>
                 <div class="p-4">
-                  <p class="text-[10px] font-medium text-white/30 uppercase tracking-wider mb-1">Qodora</p>
+                  <p class="text-[10px] font-medium text-white/30 uppercase tracking-wider mb-1">Lequied</p>
                   <h3 class="text-sm font-semibold text-white truncate mb-1.5 group-hover:text-white/90 transition-colors">${product.name}</h3>
                   <div class="flex items-baseline gap-2">
                     <span class="text-sm font-semibold text-white">${product.price}</span>
@@ -291,7 +291,7 @@ function renderLiquidPreview() {
         </div>
       </div>
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4 py-6 border-t border-white/[0.06]">
-        <p class="text-xs text-white/30">&copy; 2026 Qodora. All rights reserved.</p>
+        <p class="text-xs text-white/30">&copy; 2026 Lequied by Shiboshree Roy. All rights reserved.</p>
       </div>
     </div>
   </footer>
@@ -346,7 +346,7 @@ function renderFileExplorer() {
     treeHtml += '</div>';
   }
 
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Theme Files - Qodora iOS Pro</title>
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Theme Files - Lequied</title>
   <style>body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;background:#000;color:#F5F5F7;margin:0;padding:40px}
   .container{max-width:600px;margin:0 auto}h1{font-size:28px;font-weight:700;margin-bottom:8px}
   .subtitle{color:rgba(255,255,255,0.5);font-size:14px;margin-bottom:32px}
@@ -355,7 +355,7 @@ function renderFileExplorer() {
   .nav a.active{background:#fff;color:#000}.nav a:not(.active){background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.7);border:1px solid rgba(255,255,255,0.08)}
   .nav a:not(.active):hover{background:rgba(255,255,255,0.1);color:#fff}
   </style></head><body><div class="container">
-  <h1>Qodora iOS Pro Theme</h1>
+  <h1>Lequied Theme</h1>
   <p class="subtitle">Online Store 2.0 Compliant Shopify Theme</p>
   <div class="nav"><a href="/">Preview</a><a href="/files" class="active">Files</a></div>
   ${treeHtml}
@@ -368,7 +368,7 @@ function renderFileView(filePath) {
   if (!content) return null;
 
   const escaped = content.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${filePath} - Qodora iOS Pro</title>
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${filePath} - Lequied</title>
   <style>body{font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif;background:#000;color:#F5F5F7;margin:0;padding:40px}
   .container{max-width:900px;margin:0 auto}
   .breadcrumb{font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:16px}
@@ -429,5 +429,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, '0.0.0.0', () => {
-  console.log(`Qodora iOS Pro Theme preview running at http://0.0.0.0:${PORT}`);
+  console.log(`Lequied Theme preview running at http://0.0.0.0:${PORT}`);
 });

@@ -1,7 +1,7 @@
-# Qodora iOS Pro - Shopify Theme
+# Lequied - Shopify Theme
 
 ## Overview
-A production-grade, Online Store 2.0 compliant Shopify theme inspired by the iOS 17 Pro Max interface. Features a premium dark mode design with glassmorphism effects, Dynamic Island navigation, and Bento Grid layouts.
+Lequied by Shiboshree Roy. A production-grade, Online Store 2.0 compliant Shopify theme inspired by the iOS 17 Pro Max interface. Licensed under MIT. Features a premium dark mode design with glassmorphism effects, Dynamic Island navigation, and Bento Grid layouts.
 
 ## Directory Structure
 ```
