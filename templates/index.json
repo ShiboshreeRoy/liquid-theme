@@ -1,0 +1,36 @@
+{
+  "sections": {
+    "announcement": {
+      "type": "announcement-bar",
+      "settings": {
+        "text": "Free shipping on orders over $100",
+        "link": "/collections/all",
+        "show_announcement": true
+      }
+    },
+    "hero": {
+      "type": "bento-hero",
+      "settings": {
+        "heading": "Designed for the extraordinary.",
+        "subheading": "Premium products crafted with precision and purpose.",
+        "button_text": "Shop Now",
+        "button_link": "/collections/all",
+        "secondary_button_text": "Learn More",
+        "secondary_button_link": "/pages/about"
+      }
+    },
+    "featured_collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Featured",
+        "collection": "all",
+        "products_to_show": 8
+      }
+    }
+  },
+  "order": [
+    "announcement",
+    "hero",
+    "featured_collection"
+  ]
+}

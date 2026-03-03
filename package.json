@@ -1,0 +1,13 @@
+{
+  "name": "qodora-ios-pro-theme",
+  "version": "1.0.0",
+  "description": "iOS 17 Pro Max inspired Shopify Online Store 2.0 theme",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "keywords": ["shopify", "theme", "ios"],
+  "author": "Qodora",
+  "license": "ISC"
+}
