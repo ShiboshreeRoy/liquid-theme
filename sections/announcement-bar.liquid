@@ -1,0 +1,58 @@
+{% if section.settings.show_announcement %}
+  <div
+    class="relative overflow-hidden bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-blue-600/20"
+    role="region"
+    aria-label="{{ 'accessibility.announcement' | t }}"
+    data-announcement-bar
+  >
+    <div class="max-w-7xl mx-auto px-4 py-2.5">
+      <div class="flex items-center justify-center gap-2">
+        {% if section.settings.link != blank %}
+          <a
+            href="{{ section.settings.link }}"
+            class="text-xs sm:text-sm font-medium text-white/90 hover:text-white transition-colors text-center focus:outline-none focus:ring-2 focus:ring-white/30 rounded"
+          >
+            {{ section.settings.text }}
+            <span class="inline-block ml-1 text-white/60" aria-hidden="true">&rarr;</span>
+          </a>
+        {% else %}
+          <p class="text-xs sm:text-sm font-medium text-white/90 text-center">
+            {{ section.settings.text }}
+          </p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+{% endif %}
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "tag": "section",
+  "class": "announcement-bar-section",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "show_announcement",
+      "label": "Show announcement",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Announcement text",
+      "default": "Free shipping on orders over $100"
+    },
+    {
+      "type": "url",
+      "id": "link",
+      "label": "Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Announcement Bar"
+    }
+  ]
+}
+{% endschema %}

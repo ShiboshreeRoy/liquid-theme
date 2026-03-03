@@ -1,0 +1,81 @@
+{%- assign products_per_page = section.settings.products_per_page | default: 16 -%}
+
+<section class="py-8 sm:py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-center justify-between mb-6">
+      <p class="text-sm text-white/50">
+        {{ collection.products_count }} {{ 'collection.products' | t | downcase }}
+      </p>
+    </div>
+
+    {% paginate collection.products by products_per_page %}
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
+        {% for product in collection.products %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+      </div>
+
+      {% if paginate.pages > 1 %}
+        <nav class="mt-12 flex items-center justify-center gap-2" role="navigation" aria-label="Pagination">
+          {% if paginate.previous %}
+            <a href="{{ paginate.previous.url }}" class="px-4 py-2 text-sm font-medium text-white/70 bg-white/5 rounded-xl hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-white/30" aria-label="Previous page">
+              &larr; Prev
+            </a>
+          {% endif %}
+
+          {% for part in paginate.parts %}
+            {% if part.is_link %}
+              <a href="{{ part.url }}" class="w-10 h-10 flex items-center justify-center text-sm font-medium text-white/70 bg-white/5 rounded-xl hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-white/30" aria-label="Page {{ part.title }}">
+                {{ part.title }}
+              </a>
+            {% else %}
+              {% if part.title == paginate.current_page %}
+                <span class="w-10 h-10 flex items-center justify-center text-sm font-semibold text-black bg-white rounded-xl" aria-current="page">
+                  {{ part.title }}
+                </span>
+              {% else %}
+                <span class="w-10 h-10 flex items-center justify-center text-sm text-white/30">
+                  {{ part.title }}
+                </span>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+
+          {% if paginate.next %}
+            <a href="{{ paginate.next.url }}" class="px-4 py-2 text-sm font-medium text-white/70 bg-white/5 rounded-xl hover:bg-white/10 transition-colors focus:outline-none focus:ring-2 focus:ring-white/30" aria-label="Next page">
+              Next &rarr;
+            </a>
+          {% endif %}
+        </nav>
+      {% endif %}
+    {% endpaginate %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Product Grid",
+  "tag": "section",
+  "class": "collection-product-grid-section",
+  "settings": [
+    {
+      "type": "range",
+      "id": "products_per_page",
+      "label": "Products per page",
+      "min": 4,
+      "max": 48,
+      "step": 4,
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Desktop columns",
+      "min": 2,
+      "max": 5,
+      "step": 1,
+      "default": 4
+    }
+  ]
+}
+{% endschema %}

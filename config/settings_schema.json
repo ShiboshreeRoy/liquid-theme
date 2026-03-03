@@ -1,0 +1,213 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Lequied",
+    "theme_version": "1.0.0",
+    "theme_author": "Shiboshree Roy",
+    "theme_documentation_url": "https://github.com/ShiboshreeRoy/liquid-theme",
+    "theme_support_url": "https://github.com/ShiboshreeRoy/liquid-theme/issues"
+  },
+  {
+    "name": "Logo & Branding",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo image"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "label": "Logo width",
+        "min": 50,
+        "max": 250,
+        "step": 10,
+        "default": 120,
+        "unit": "px"
+      },
+      {
+        "type": "image_picker",
+        "id": "favicon",
+        "label": "Favicon",
+        "info": "32x32px recommended"
+      }
+    ]
+  },
+  {
+    "name": "Colors",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Primary Palette"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary",
+        "default": "#0A84FF",
+        "info": "iOS system blue"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary",
+        "label": "Secondary",
+        "default": "#5E5CE6",
+        "info": "iOS system indigo"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Accent",
+        "default": "#BF5AF2",
+        "info": "iOS system purple"
+      },
+      {
+        "type": "header",
+        "content": "Surface Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Background",
+        "default": "#000000",
+        "info": "Deep Black"
+      },
+      {
+        "type": "color",
+        "id": "color_surface",
+        "label": "Surface",
+        "default": "#1C1C1E",
+        "info": "iOS dark surface"
+      },
+      {
+        "type": "header",
+        "content": "Text Colors"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text",
+        "default": "#F5F5F7",
+        "info": "Titanium Silver"
+      },
+      {
+        "type": "color",
+        "id": "color_text_muted",
+        "label": "Muted text",
+        "default": "#86868B",
+        "info": "Apple secondary text"
+      },
+      {
+        "type": "color",
+        "id": "color_border",
+        "label": "Borders",
+        "default": "#38383A"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Heading font",
+        "default": "helvetica_n7",
+        "info": "San Francisco fallback"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Body font",
+        "default": "helvetica_n4",
+        "info": "San Francisco fallback"
+      },
+      {
+        "type": "range",
+        "id": "font_body_scale",
+        "label": "Body font size scale",
+        "min": 85,
+        "max": 130,
+        "step": 5,
+        "default": 100,
+        "unit": "%"
+      }
+    ]
+  },
+  {
+    "name": "Layout",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "label": "Max page width",
+        "min": 1000,
+        "max": 1600,
+        "step": 100,
+        "default": 1200,
+        "unit": "px"
+      },
+      {
+        "type": "range",
+        "id": "section_spacing",
+        "label": "Space between sections",
+        "min": 0,
+        "max": 100,
+        "step": 4,
+        "default": 0,
+        "unit": "px"
+      }
+    ]
+  },
+  {
+    "name": "Cart",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Cart type",
+        "options": [
+          { "value": "drawer", "label": "Drawer (recommended)" },
+          { "value": "page", "label": "Page" }
+        ],
+        "default": "drawer",
+        "info": "Drawer uses glassmorphism slide-in panel"
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_notes",
+        "label": "Enable cart notes",
+        "default": false
+      }
+    ]
+  },
+  {
+    "name": "Social Media",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Social links"
+      },
+      {
+        "type": "text",
+        "id": "social_twitter",
+        "label": "X (Twitter) URL"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "text",
+        "id": "social_tiktok",
+        "label": "TikTok URL"
+      },
+      {
+        "type": "text",
+        "id": "social_youtube",
+        "label": "YouTube URL"
+      }
+    ]
+  }
+]

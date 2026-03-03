@@ -1,0 +1,13 @@
+{
+  "name": "lequied-theme",
+  "version": "1.0.0",
+  "description": "Lequied - iOS 17 Pro Max inspired Shopify Online Store 2.0 theme by Shiboshree Roy",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "node index.js"
+  },
+  "keywords": ["shopify", "theme", "ios", "lequied"],
+  "author": "Shiboshree Roy",
+  "license": "MIT"
+}

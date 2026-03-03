@@ -1,0 +1,109 @@
+{%- assign collection = collections[section.settings.collection] -%}
+
+<section class="py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8" aria-label="{{ section.settings.title | escape }}">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex items-end justify-between mb-8 sm:mb-10">
+      <div>
+        {% if section.settings.subtitle != blank %}
+          <p class="text-sm font-medium text-white/40 uppercase tracking-wider mb-2">{{ section.settings.subtitle }}</p>
+        {% endif %}
+        <h2 class="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white">
+          {{ section.settings.title | default: 'Featured' }}
+        </h2>
+      </div>
+
+      {% if collection != blank %}
+        <a
+          href="{{ collection.url }}"
+          class="hidden sm:inline-flex items-center gap-1.5 text-sm font-medium text-blue-400 hover:text-blue-300 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-400/30 rounded-lg px-2 py-1"
+        >
+          {{ 'collection.view_all' | t }}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-5">
+      {% if collection != blank %}
+        {%- for product in collection.products limit: section.settings.products_to_show -%}
+          {% render 'product-card', product: product %}
+        {%- endfor -%}
+      {% else %}
+        {% for i in (1..section.settings.products_to_show) %}
+          <div class="glass-surface rounded-3xl p-4 haptic-hover">
+            <div class="aspect-square rounded-2xl bg-white/5 mb-4 flex items-center justify-center">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" class="text-white/20">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <circle cx="8.5" cy="8.5" r="1.5"></circle>
+                <polyline points="21 15 16 10 5 21"></polyline>
+              </svg>
+            </div>
+            <div class="space-y-2">
+              <div class="h-4 bg-white/10 rounded-full w-3/4"></div>
+              <div class="h-3 bg-white/5 rounded-full w-1/2"></div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+
+    {% if collection != blank %}
+      <div class="sm:hidden mt-8 text-center">
+        <a
+          href="{{ collection.url }}"
+          class="inline-flex items-center gap-1.5 px-6 py-3 text-sm font-semibold text-white bg-white/10 rounded-full hover:bg-white/20 transition-colors border border-white/[0.08] focus:outline-none focus:ring-2 focus:ring-white/30"
+        >
+          {{ 'collection.view_all' | t }}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "tag": "section",
+  "class": "featured-collection-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Featured"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Curated for you"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 8
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}

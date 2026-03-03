@@ -1,0 +1,365 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}" dir="{{ settings.text_direction | default: 'ltr' }}">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="{{ settings.color_background }}">
+
+  <title>
+    {{ page_title }}{% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+  </title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <link rel="canonical" href="{{ canonical_url }}">
+
+  {% if settings.favicon != blank %}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {% endif %}
+
+  {% render 'icon-pack' %}
+
+  {{ 'tailwind-output.css' | asset_url | stylesheet_tag }}
+
+  {{ content_for_header }}
+
+  <style>
+    :root {
+      --color-primary: {{ settings.color_primary }};
+      --color-secondary: {{ settings.color_secondary }};
+      --color-background: {{ settings.color_background }};
+      --color-surface: {{ settings.color_surface }};
+      --color-text: {{ settings.color_text }};
+      --color-text-muted: {{ settings.color_text_muted }};
+      --color-accent: {{ settings.color_accent }};
+      --color-border: {{ settings.color_border }};
+      --font-heading: {{ settings.font_heading }};
+      --font-body: {{ settings.font_body }};
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      font-size: 16px;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-body), -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'SF Pro Display', 'Helvetica Neue', Arial, sans-serif;
+      background-color: var(--color-background);
+      color: var(--color-text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    .sf-pro {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', system-ui, sans-serif;
+    }
+
+    .frosted-glass {
+      background: rgba(28, 28, 30, 0.72);
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+    }
+
+    .glass-surface {
+      background: rgba(44, 44, 46, 0.5);
+      backdrop-filter: blur(40px);
+      -webkit-backdrop-filter: blur(40px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .dynamic-island {
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      will-change: transform, width, height, border-radius;
+    }
+
+    .dynamic-island.expanded {
+      width: 100% !important;
+      max-width: 600px;
+      border-radius: 22px;
+    }
+
+    .haptic-hover {
+      transition: transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), box-shadow 0.2s ease;
+    }
+
+    .haptic-hover:hover {
+      transform: scale(1.02) translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .haptic-hover:active {
+      transform: scale(0.98);
+    }
+
+    .cart-drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 998;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .cart-drawer-overlay.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      right: 0;
+      width: 100%;
+      max-width: 420px;
+      height: 100%;
+      z-index: 999;
+      transform: translateX(100%);
+      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+      background: rgba(28, 28, 30, 0.85);
+      backdrop-filter: saturate(180%) blur(40px);
+      -webkit-backdrop-filter: saturate(180%) blur(40px);
+      border-left: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .cart-drawer.active {
+      transform: translateX(0);
+    }
+
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9999;
+      padding: 12px 24px;
+      background: var(--color-accent);
+      color: #fff;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .skip-link:focus {
+      top: 12px;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media (prefers-contrast: high) {
+      :root {
+        --color-text: #ffffff;
+        --color-background: #000000;
+        --color-border: rgba(255, 255, 255, 0.3);
+      }
+    }
+  </style>
+</head>
+<body class="template-{{ template.name }} sf-pro">
+
+  <a class="skip-link" href="#main-content">
+    {{ 'accessibility.skip_to_content' | t }}
+  </a>
+
+  <header class="sticky top-0 z-50 w-full" role="banner">
+    <div class="frosted-glass border-b border-white/[0.08]">
+      {% section 'announcement-bar' %}
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center justify-between h-16 md:h-[72px]">
+
+          <button
+            class="md:hidden flex items-center justify-center w-10 h-10 rounded-xl text-white/80 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 transition-colors"
+            aria-label="{{ 'accessibility.menu' | t }}"
+            aria-expanded="false"
+            data-mobile-menu-toggle
+          >
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+
+          <div class="flex items-center">
+            {% if settings.logo != blank %}
+              <a href="/" class="block" aria-label="{{ shop.name }}">
+                <img
+                  src="{{ settings.logo | image_url: width: 200 }}"
+                  alt="{{ settings.name }}"
+                  width="120"
+                  height="40"
+                  loading="eager"
+                  class="h-8 w-auto"
+                >
+              </a>
+            {% else %}
+              <a href="/" class="text-xl font-semibold tracking-tight text-white hover:text-white/90 transition-colors" aria-label="{{ shop.name }}">
+                {{ shop.name }}
+              </a>
+            {% endif %}
+          </div>
+
+          <nav class="hidden md:flex items-center" role="navigation" aria-label="{{ 'accessibility.main_navigation' | t }}">
+            <div class="dynamic-island flex items-center gap-1 px-4 py-2 rounded-full bg-white/[0.06] border border-white/[0.08]" id="dynamic-island-nav">
+              {% for link in linklists.main-menu.links %}
+                <a
+                  href="{{ link.url }}"
+                  class="px-4 py-2 text-sm font-medium text-white/70 hover:text-white rounded-full hover:bg-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-white/30 {% if link.active %}text-white bg-white/10{% endif %}"
+                  {% if link.active %}aria-current="page"{% endif %}
+                >
+                  {{ link.title }}
+                </a>
+              {% endfor %}
+            </div>
+          </nav>
+
+          <div class="flex items-center gap-2">
+            <a
+              href="/search"
+              class="flex items-center justify-center w-10 h-10 rounded-xl text-white/70 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 transition-colors"
+              aria-label="{{ 'accessibility.search' | t }}"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </a>
+
+            <a
+              href="/account"
+              class="hidden sm:flex items-center justify-center w-10 h-10 rounded-xl text-white/70 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 transition-colors"
+              aria-label="{{ 'accessibility.account' | t }}"
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+            </a>
+
+            <button
+              class="relative flex items-center justify-center w-10 h-10 rounded-xl text-white/70 hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/30 transition-colors"
+              aria-label="{{ 'accessibility.cart' | t }} ({{ cart.item_count }})"
+              data-cart-toggle
+            >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"></path>
+                <line x1="3" y1="6" x2="21" y2="6"></line>
+                <path d="M16 10a4 4 0 01-8 0"></path>
+              </svg>
+              {% if cart.item_count > 0 %}
+                <span class="absolute -top-1 -right-1 flex items-center justify-center w-5 h-5 text-[10px] font-bold text-white bg-blue-500 rounded-full" aria-hidden="true">
+                  {{ cart.item_count }}
+                </span>
+              {% endif %}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <nav
+        class="md:hidden overflow-hidden transition-all duration-300 ease-in-out max-h-0"
+        role="navigation"
+        aria-label="{{ 'accessibility.mobile_navigation' | t }}"
+        data-mobile-menu
+      >
+        <div class="px-4 pb-4 space-y-1 border-t border-white/[0.06]">
+          {% for link in linklists.main-menu.links %}
+            <a
+              href="{{ link.url }}"
+              class="block px-4 py-3 text-base font-medium text-white/70 hover:text-white rounded-xl hover:bg-white/10 transition-all focus:outline-none focus:ring-2 focus:ring-white/30 {% if link.active %}text-white bg-white/10{% endif %}"
+              {% if link.active %}aria-current="page"{% endif %}
+            >
+              {{ link.title }}
+            </a>
+          {% endfor %}
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main-content" role="main" tabindex="-1">
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'footer' %}
+
+  <div class="cart-drawer-overlay" data-cart-overlay aria-hidden="true"></div>
+
+  <aside class="cart-drawer" data-cart-drawer role="dialog" aria-label="{{ 'cart.title' | t }}" aria-modal="true">
+    <div class="flex flex-col h-full">
+      <div class="flex items-center justify-between p-6 border-b border-white/[0.08]">
+        <h2 class="text-lg font-semibold text-white">{{ 'cart.title' | t }}</h2>
+        <button
+          class="flex items-center justify-center w-8 h-8 rounded-full bg-white/10 text-white/70 hover:text-white hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/30 transition-colors"
+          data-cart-close
+          aria-label="{{ 'accessibility.close' | t }}"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="flex-1 overflow-y-auto p-6" data-cart-items>
+        <div class="flex flex-col items-center justify-center h-full text-center" data-cart-empty>
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" class="text-white/30 mb-4">
+            <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"></path>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <path d="M16 10a4 4 0 01-8 0"></path>
+          </svg>
+          <p class="text-white/50 text-sm">{{ 'cart.empty' | t }}</p>
+          <a href="/collections/all" class="mt-4 px-6 py-3 bg-white text-black rounded-full text-sm font-semibold hover:bg-white/90 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50">
+            {{ 'cart.continue_shopping' | t }}
+          </a>
+        </div>
+      </div>
+
+      <div class="p-6 border-t border-white/[0.08]" data-cart-footer style="display: none;">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-sm text-white/60">{{ 'cart.subtotal' | t }}</span>
+          <span class="text-lg font-semibold text-white" data-cart-total>{{ cart.total_price | money }}</span>
+        </div>
+        <a
+          href="/checkout"
+          class="block w-full py-4 text-center bg-white text-black rounded-2xl font-semibold text-sm hover:bg-white/90 transition-colors focus:outline-none focus:ring-2 focus:ring-white/50"
+        >
+          {{ 'cart.checkout' | t }}
+        </a>
+      </div>
+    </div>
+  </aside>
+
+  <script src="{{ 'application.js' | asset_url }}" defer></script>
+</body>
+</html>
